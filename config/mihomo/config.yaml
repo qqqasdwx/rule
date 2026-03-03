@@ -4,10 +4,21 @@
 # 跑裸核用户请自行去掉下方控制面板模块的注释。
 # 机场订阅
 proxy-providers:
-  Airport1:
+  跑路:
     url: "机场订阅填到这里，两端引号不要去掉，不要填写到下方链接里去！！"
     type: http
-    interval: 86400
+    override:
+      additional-prefix: "跑路 | "
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 直连
+  小姨子:
+    url: "机场订阅填到这里，两端引号不要去掉，不要填写到下方链接里去！！"
+    type: http
+    override:
+      additional-prefix: "小姨子 | "
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
@@ -16,6 +27,23 @@ proxy-providers:
 
 # 节点信息
 proxies:
+  - name: "[落地] - 加州圣何塞"
+    dialer-proxy: "加州圣何塞前置节点"
+    type: socks5
+    server: xxx
+    port: 443
+    username: xxx
+    password: xxx
+    skip-cert-verify: true
+    udp: true
+  - name: "[落地] - aaitr"
+    dialer-proxy: "aaitr前置节点"
+    type: ss
+    server: xxx
+    port: 443
+    cipher: xxx
+    password: xxx
+    udp: false
   - { name: 直连, type: direct }
 
 # 全局配置
@@ -122,6 +150,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -144,6 +173,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -166,6 +196,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -187,6 +218,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -209,6 +241,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -230,6 +263,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -251,6 +285,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -272,6 +307,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -294,6 +330,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -316,6 +353,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -338,6 +376,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -361,6 +400,7 @@ proxy-groups:
           🇺🇲 美国节点,
           🌐 全部节点,
           直连,
+          aaitr,
         ],
     }
   - {
@@ -454,6 +494,40 @@ proxy-groups:
       tolerance: 20,
       interval: 300,
       filter: "^((?!(直连)).)*$",
+    }
+  - name: "加州圣何塞前置节点"
+    type: load-balance
+    url: "https://www.gstatic.com/generate_204"
+    interval: 10
+    lazy: false
+    timeout: 1000
+    max-failed-times: 5
+    disable-udp: false
+    include-all: true
+    filter: "美|日本|港"
+    strategy: round-robin
+  - name: 手动选择（7903）
+    type: select
+    proxies: [DIRECT]
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    max-failed-times: 5
+    include-all: true
+  - name: "aaitr前置节点"
+    type: select
+    proxies: [DIRECT]
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    max-failed-times: 5
+    include-all: true
+    filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$",
+  - {
+      name: aaitr,
+      type: select,
+      proxies:
+        [
+          "[落地] - aaitr",
+        ],
     }
   - { name: 🌐 全部节点, type: select, include-all: true }
 
@@ -607,3 +681,19 @@ rule-providers:
       <<: *ip,
       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs",
     }
+listeners:
+  - name: "Inbound-7902"
+    type: mixed
+    port: 7902
+    listen: 0.0.0.0
+    proxy: "[落地] - 加州圣何塞"
+  - name: "Inbound-7903"
+    type: mixed
+    port: 7903
+    listen: 0.0.0.0
+    proxy: "手动选择（7903）"
+  - name: "Inbound-7904"
+    type: mixed
+    port: 7904
+    listen: 0.0.0.0
+    proxy: "[落地] - aaitr"
