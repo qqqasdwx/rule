@@ -569,6 +569,7 @@ rules:
   - RULE-SET,netflix_ip,🎥 NETFLIX
   - RULE-SET,telegram_ip,📲 Telegram
   - GEOSITE,steam@cn,DIRECT
+  - GEOSITE,category-games@cn,DIRECT
   - RULE-SET,geolocation-!cn,🚀 默认代理
   - RULE-SET,cn_domain,直连
   - RULE-SET,cn_ip,直连
