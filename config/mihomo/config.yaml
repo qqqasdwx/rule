@@ -551,6 +551,7 @@ rules:
   - RULE-SET,private_ip,直连,no-resolve
   - RULE-SET,private_domain,直连
   - DOMAIN-SUFFIX,qichiyu.com,🚀 默认代理
+  - RULE-SET,directlite,直连
   - RULE-SET,proxylite,🚀 默认代理
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
@@ -567,6 +568,7 @@ rules:
   - RULE-SET,google_ip,🍀 Google
   - RULE-SET,netflix_ip,🎥 NETFLIX
   - RULE-SET,telegram_ip,📲 Telegram
+  - GEOSITE,steam@cn,DIRECT
   - RULE-SET,geolocation-!cn,🚀 默认代理
   - RULE-SET,cn_domain,直连
   - RULE-SET,cn_ip,直连
@@ -589,6 +591,11 @@ rule-providers:
     {
       <<: *domain,
       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs",
+    }
+  directlite:
+    {
+      <<: *class,
+      url: "https://raw.githubusercontent.com/qqqasdwx/rule/refs/heads/main/direct.list",
     }
   proxylite:
     {
