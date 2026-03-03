@@ -2,5 +2,5 @@
 # https://wiki.metacubex.one/config/rules/
 
 # 域名后缀匹配
-DOMAIN-SUFFIX,img.urlnode.com
+# DOMAIN-SUFFIX,baidu.com
 
