@@ -35,7 +35,7 @@ proxies:
       public-key: "2GPEbCh3ZVgGXbwzo1TzCe38JPvMm8HRSxuOuKspKAE"
       short-id: "a118b9425a7e2dc5"
     skip-cert-verify: false
-  
+
   - name: "HYSTERIA2"
     type: hysteria2
     server: yu.ykszckj.com
@@ -52,7 +52,7 @@ proxies:
     type: direct
     udp: true
 
-# 全局配置 
+# 全局配置
 mixed-port: 7890
 allow-lan: true
 bind-address: "*"
@@ -122,24 +122,63 @@ dns:
   nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
- 
- 
+
 # 出站策略
 proxy-groups:
-  - {name: 🐸 手动选择, type: select, include-all: true}
-  - {name: 📹 YouTube, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🍀 Google, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🤖 ChatGPT, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 👨🏿‍💻 GitHub, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🐬 OneDrive, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🪟 Microsoft, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🎵 TikTok, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 📲 Telegram, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🎥 NETFLIX, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: ✈️ Speedtest, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 💶 PayPal, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🍎 Apple, type: select, include-all: true, proxies: [🐸 手动选择]}
-  - {name: 🐟 漏网之鱼, type: select, include-all: true, proxies: [🐸 手动选择]}
+  - { name: 🐸 手动选择, type: select, include-all: true }
+  - {
+      name: 📹 YouTube,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - { name: 🍀 Google, type: select, include-all: true, proxies: [🐸 手动选择] }
+  - {
+      name: 🤖 ChatGPT,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - { name: 👨🏿‍💻 GitHub, type: select, include-all: true, proxies: [🐸 手动选择] }
+  - {
+      name: 🐬 OneDrive,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - {
+      name: 🪟 Microsoft,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - { name: 🎵 TikTok, type: select, include-all: true, proxies: [🐸 手动选择] }
+  - {
+      name: 📲 Telegram,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - {
+      name: 🎥 NETFLIX,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - {
+      name: ✈️ Speedtest,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
+  - { name: 💶 PayPal, type: select, include-all: true, proxies: [🐸 手动选择] }
+  - { name: 🍎 Apple, type: select, include-all: true, proxies: [🐸 手动选择] }
+  - {
+      name: 🐟 漏网之鱼,
+      type: select,
+      include-all: true,
+      proxies: [🐸 手动选择],
+    }
 
 # 规则匹配
 rules:
@@ -170,31 +209,124 @@ rules:
 # 规则集
 ## type：可选http/file/inline  behavior：可选domain/ipcidr/classical format：可选yaml/text/mrs
 rule-anchor:
-  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
-  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
-  class: &class {type: http, interval: 86400, behavior: classical, format: text}
-rule-providers: 
-  fakeipfilter_domain: {<<: *domain, url: "https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"}
-  private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
-  proxylite: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/proxy.list"}
-  ai: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
-  youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
-  google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
-  github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
-  telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
-  netflix_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
-  paypal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
-  onedrive_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
-  microsoft_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
-  apple_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"}
-  speedtest_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
-  tiktok_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
-  geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
-  cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
-  
-  private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
-  cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
-  google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
-  telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
-  netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
-  apple_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+  ip: &ip { type: http, interval: 86400, behavior: ipcidr, format: mrs }
+  domain: &domain { type: http, interval: 86400, behavior: domain, format: mrs }
+  class:
+    &class { type: http, interval: 86400, behavior: classical, format: text }
+rule-providers:
+  fakeipfilter_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs",
+    }
+  private_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs",
+    }
+  proxylite:
+    {
+      <<: *class,
+      url: "https://raw.githubusercontent.com/qqqasdwx/rule/refs/heads/main/proxy.list",
+    }
+  ai:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs",
+    }
+  youtube_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs",
+    }
+  google_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs",
+    }
+  github_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs",
+    }
+  telegram_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs",
+    }
+  netflix_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs",
+    }
+  paypal_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs",
+    }
+  onedrive_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs",
+    }
+  microsoft_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs",
+    }
+  apple_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs",
+    }
+  speedtest_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs",
+    }
+  tiktok_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs",
+    }
+  geolocation-!cn:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs",
+    }
+  cn_domain:
+    {
+      <<: *domain,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+    }
+
+  private_ip:
+    {
+      <<: *ip,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs",
+    }
+  cn_ip:
+    {
+      <<: *ip,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
+    }
+  google_ip:
+    {
+      <<: *ip,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs",
+    }
+  telegram_ip:
+    {
+      <<: *ip,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs",
+    }
+  netflix_ip:
+    {
+      <<: *ip,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs",
+    }
+  apple_ip:
+    {
+      <<: *ip,
+      url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs",
+    }
